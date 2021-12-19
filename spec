@@ -26,9 +26,21 @@ sum :: (int a, b) returns int {
 
 }
 
+// Operator-inferred function without "returns" keyword
+sum :: (int a, b) int {
 
+}
 
-// C version
+sum :: (int a, b) (int, float32) {
+
+}
+
+// Operator-inferred, using :> instead of ::
+foo :> (int a) string {
+
+}
+
+// C/go version
 func sum(int a, int b) (int) {
     sum := a + b
     return sum
