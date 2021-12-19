@@ -17,28 +17,22 @@ main {
 @function
 <- int a, int b
 -> int
-sum {
-
-}
+sum {}
 
 // Operator-inferred function declaration 
-sum :: (int a, b) returns int {
-
-}
+sum :: (int a, b) returns int {}
 
 // Operator-inferred function without "returns" keyword
-sum :: (int a, b) int {
+sum :: (int a, b) int {}
 
-}
+sum :: (int a, b) (int, float32) {}
 
-sum :: (int a, b) (int, float32) {
+sum :: (int a, b) int, float32 {}
 
-}
+func someFunc := sum :: (int a, b) int{}
 
 // Operator-inferred, using :> instead of ::
-foo :> (int a) string {
-
-}
+foo :> (int a) string {}
 
 // C/go version
 func sum(int a, int b) (int) {
