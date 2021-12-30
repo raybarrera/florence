@@ -34,6 +34,8 @@ struct Person {
     string  lastName
 }
 
+@struct Person{}
+
 // Contracts, AKA Interfaces (Should I just call them interfaces?)
 contract Counter {
     Count :: (int a, int b) int
@@ -45,9 +47,23 @@ contract Counter {
     Count :: (int a, int b) -> int
 }
 
-Person (ref p) :: Count :: (int a, int b) int {
-    ...
+@trait Counter {
+    Count :: (int, int) int
+    Deduct :: (int) int
 }
+
+interface Counter {...}
+
+type Counter interface {...}
+
+trait Counter {...}
+
+@trait Counter{...}
+
+@Counter::Count(int, int) int
+@Counter::Deduct(int, int) int
+
+Person (ref p) :: Count :: (int a, int b) int {...} 
 
 // Annotations version
 @function
