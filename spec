@@ -9,8 +9,44 @@ float32 cents
 
 @function
 main {
+    Person p = {
+        age: 20,
+        name: "blah",
+        lastName: "doo"
+    }
+    something := p.Count(1, 2)
+    other := foo(p)
     log(sum(1,2))
     return 0
+}
+
+foo :: (Counter c) int {
+    return c.Count(1, 2)
+}
+
+// Type declarations
+// ..Do we want classes?
+// ...Do we want pointers?
+// .... Do we want auto-linting like gofmt?
+struct Person {
+    int     age
+    string  name
+    string  lastName
+}
+
+// Contracts, AKA Interfaces (Should I just call them interfaces?)
+contract Counter {
+    Count :: (int a, int b) int
+}
+
+or
+
+contract Counter {
+    Count :: (int a, int b) -> int
+}
+
+Person (ref p) :: Count :: (int a, int b) int {
+    ...
 }
 
 // Annotations version
@@ -30,6 +66,8 @@ sum :: (int a, b) (int, float32) {}
 sum :: (int a, b) int, float32 {}
 
 func someFunc := sum :: (int a, b) int{}
+
+someFunc := (int a, b) int{}
 
 // Operator-inferred, using :> instead of ::
 foo :> (int a) string {}
