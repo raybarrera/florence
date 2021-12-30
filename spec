@@ -1,6 +1,6 @@
 // :: scope operator
 // program is a keyword indicating this is a program, not a pacakge.
-// main is the reserved name for the main activity in a program
+// main is the reserved keyword/name for the main activity in a program
 :: program main
 
 int count = 1
@@ -72,8 +72,8 @@ sum :: (int a, b) (int, float32) {}
 sum :: (int a, b) int, float32 {}
 
 // FUNCTION DECLARATIONS -- named args?
-sum::(int some, int thing;) int{}
-sum::(_;int some, int thing) int{}
+sum::(int some, int thing,{int do}) int{}
+sum::(int some, int thing) int{}
 
 // Lambdas?
 func someFunc := sum :: (int a, b) int{}
@@ -94,5 +94,8 @@ func foo() (int a, int b) {
 }
 
 //  declaring a new scope in the same file.
+//  NOTES: There is an "open" scope at the top (::), we infer
+//  a "closing" scope at end of file, or in this case, a new scope declaration.
+//  In theory, this allows a "flat" structure avoiding the unnecessary indentation in languages like C# (prior to v10)
 // This is a scope for package named main_tests
 :: package main_tests
