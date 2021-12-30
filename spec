@@ -55,12 +55,6 @@ trait Counter {...}
 
 Person (ref p) :: Count :: (int a, int b) int {...} 
 
-// Annotations version
-@function
-<- int a, int b
--> int
-sum {}
-
 // Operator-inferred function declaration 
 sum :: (int a, b) returns int {}
 
