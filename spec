@@ -36,17 +36,7 @@ struct Person {
 
 @struct Person{}
 
-// Contracts, AKA Interfaces (Should I just call them interfaces?)
-contract Counter {
-    Count :: (int a, int b) int
-}
-
-or
-
-contract Counter {
-    Count :: (int a, int b) -> int
-}
-
+// Contracts, AKA Interfaces (Should I just call them interfaces?) Or traits
 @trait Counter {
     Count :: (int, int) int
     Deduct :: (int) int
