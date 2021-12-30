@@ -51,14 +51,20 @@ trait Counter {...}
 @trait Counter{...}
 
 @Counter::Count(int, int) int
-@Counter::Deduct(int, int) int
+@Counter::Deduct(int) int
 
+
+// Methods
 Person (ref p) :: Count :: (int a, int b) int {...} 
 
-// Operator-inferred function declaration 
+Person::Count::(int a, int b) int [Person p] {...}
+
+Count::(@Person p, int a, int b) int {...}
+
+// FUNCTION DECLRATIONS -- Operator-inferred function declaration 
 sum :: (int a, b) returns int {}
 
-// Operator-inferred function without "returns" keyword
+// FUNCTION DECLRATIONS -- Operator-inferred function without "returns" keyword
 sum :: (int a, b) int {}
 
 sum :: (int a, b) (int, float32) {}
