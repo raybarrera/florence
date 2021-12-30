@@ -71,6 +71,11 @@ sum :: (int a, b) (int, float32) {}
 
 sum :: (int a, b) int, float32 {}
 
+// FUNCTION DECLARATIONS -- named args?
+sum::(int some, int thing;) int{}
+sum::(_;int some, int thing) int{}
+
+// Lambdas?
 func someFunc := sum :: (int a, b) int{}
 
 someFunc := (int a, b) int{}
