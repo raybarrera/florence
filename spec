@@ -110,8 +110,6 @@ someFunc("hello",
     (2){print()},
     (3){print()})
 
-someFunc("hello", func::(1){print()})
-someFunc("hello", (1)=>{print()})
 
 //... Lambdas that take a placeholder in arguments, and the real anonymous function
 // .... in a comma-separated list of blocks after the :: (scope) operator
