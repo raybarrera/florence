@@ -97,7 +97,46 @@ func foo() (int a, int b) {
 ////////////////////////////////////////////////////
 // ANONYMOUS FUNCTIONS
 ////////////////////////////////////////////////////
-// someFunc::(string s, func::(int)){...}
+...
+// ... Declaring a function that takes an anonymous function as an argument
+someFunc::(int a, func::(int){} f) {
+    f(a)
+}
+someFunc::(int a, func::(int){}foo, func::(int){}bar) {
+    foo(a)
+    bar(a)
+}
+someFunc::(int a, func::(int)int{} foo){
+    someInt := foo(a)
+}
+
+// ... Version without the func keyword
+someFunc::(int a, (int){} f) {
+    f(a)
+}
+someFunc::(int a, (int){}foo, (int){}bar) {
+    foo(a)
+    bar(a)
+}
+someFunc::(int a, (int)int{} foo){
+    i := foo(a)
+}
+
+// ... Placeholder version
+someFunc::(int a, func f) :: (int){} {
+    f(a)
+}
+someFunc::(int a, func foo, func bar)::
+    (int){},
+    (int){}{
+        foo(a)
+        bar(a)
+    }
+someFunc::(int a, func foo)::
+    (int)int{}{
+        i := foo(a)
+    }
+
 
 //...Inline versions. One and multiple function inputs.
 
