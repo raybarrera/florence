@@ -93,6 +93,36 @@ func sum(int a, int b) (int) {
 func foo() (int a, int b) {
     return 1, 2
 }
+ 
+// a is an int
+sum::(int a) {
+    a++ //a is a copy of the passed value, original value remains the same
+}
+
+// a is a pointer of type int
+//a = 1
+sum::(int@ a) {
+    int b := a // 
+    b++ //original value is incremented by 1
+    a = b // the int at pointer a is now equal to b (2)
+}
+
+some::(string@ a) {
+    string b := a + "world"
+    a = b // OK
+
+}
+
+some::(string@ a) {
+    &a[0] = "a" // err: "string" is immutable
+    ...
+    string b := &a + " "
+    &a = b // OK, new assignment
+}
+
+sum::(int@ a) {
+    &a++
+}
 
 ////////////////////////////////////////////////////
 // ANONYMOUS FUNCTIONS
@@ -123,7 +153,8 @@ someFunc::(int a, (int)int{} foo){
 }
 
 // ... Placeholder version
-someFunc::(int a, func f) :: (int){} {
+someFunc::(int a, func f) :: 
+(int){} {
     f(a)
 }
 someFunc::(int a, func foo, func bar)::
