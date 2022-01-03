@@ -70,17 +70,17 @@ Person::Count::(int a, int b) int [Person p] {...}
 
 Count::(@Person p, int a, int b) int {...}
 
-// FUNCTION DECLRATIONS -- Operator-inferred function declaration 
+// Operator-inferred function declaration 
 sum :: (int a, b) returns int {}
 
-// FUNCTION DECLRATIONS -- Operator-inferred function without "returns" keyword
+// Operator-inferred function without "returns" keyword
 sum :: (int a, b) int {}
 
 sum :: (int a, b) (int, float32) {}
 
 sum :: (int a, b) int, float32 {}
 
-// FUNCTION DECLARATIONS -- named args?
+// Named args?
 sum::(int some, int thing,{int do}) int{}
 sum::(int some, int thing) int{}
 
@@ -118,7 +118,9 @@ someFunc("hello", func, func, func)
     }
 
 
-
+////////////////////////////////////////////////////
+// PACKAGE/SCOPE DECLARATION
+////////////////////////////////////////////////////
 //  declaring a new scope in the same file.
 //  NOTES: There is an "open" scope at the top (::), we infer
 //  a "closing" scope at end of file, or in this case, a new scope declaration.
