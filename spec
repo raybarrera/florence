@@ -94,6 +94,9 @@ func foo() (int a, int b) {
     return 1, 2
 }
  
+////////////////////////////////////////////////////
+// POINTERS, VALUES, ETC.
+////////////////////////////////////////////////////
 // a is an int
 sum::(int a) {
     a++ //a is a copy of the passed value, original value remains the same
@@ -101,6 +104,7 @@ sum::(int a) {
 
 // a is a pointer of type int
 //a = 1
+//... using implicit casting via default operators
 sum::(int@ a) {
     int b := a // 
     b++ //original value is incremented by 1
@@ -113,6 +117,7 @@ some::(string@ a) {
 
 }
 
+// ... with dereference operator
 some::(string@ a) {
     &a[0] = "a" // err: "string" is immutable
     ...
