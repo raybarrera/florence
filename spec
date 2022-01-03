@@ -77,11 +77,8 @@ sum::(int some, int thing) int{}
 
 // Lambdas?
 // () => {}
-// someFunc::(string s, func::(int)){}
+// someFunc::(string s, func::(int)){...}
 someFunc("hello", (1){print()})
-
-// Operator-inferred, using :> instead of ::
-foo :> (int a) string {}
 
 // C/go version
 func sum(int a, int b) (int) {
