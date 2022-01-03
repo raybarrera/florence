@@ -79,6 +79,19 @@ sum::(int some, int thing) int{}
 // () => {}
 // someFunc::(string s, func::(int)){...}
 someFunc("hello", (1){print()})
+someFunc("hello", func::(1){print()})
+someFunc("hello", (1)=>{print()})
+someFunc("hello", func)::(1){print()}
+someFunc("hello", func, func, func)
+    ::(1){
+        print()
+    },
+    (1){
+        print()
+    },
+    (1){
+        print()
+    }
 
 // C/go version
 func sum(int a, int b) (int) {
