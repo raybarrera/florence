@@ -76,9 +76,9 @@ sum::(int some, int thing,{int do}) int{}
 sum::(int some, int thing) int{}
 
 // Lambdas?
-func someFunc := sum :: (int a, b) int{}
-
-someFunc := (int a, b) int{}
+// () => {}
+// someFunc::(string s, func::(int)){}
+someFunc("hello", (1){print()})
 
 // Operator-inferred, using :> instead of ::
 foo :> (int a) string {}
