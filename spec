@@ -24,7 +24,10 @@ foo :: (Counter c) int {
     return c.Count(1, 2)
 }
 
-// Type declarations
+////////////////////////////////////////////////////
+// TYPE DECLARATIONS
+////////////////////////////////////////////////////
+
 // ..Do we want classes?
 // ...Do we want pointers?
 // .... Do we want auto-linting like gofmt?
@@ -35,6 +38,10 @@ struct Person {
 }
 
 @struct Person{}
+
+////////////////////////////////////////////////////
+// TRAITS
+////////////////////////////////////////////////////
 
 // Contracts, AKA Interfaces (Should I just call them interfaces?) Or traits
 @trait Counter {
@@ -54,7 +61,9 @@ trait Counter {...}
 @Counter::Deduct(int) int
 
 
-// Methods
+////////////////////////////////////////////////////\
+// FUNCTIONS
+////////////////////////////////////////////////////
 Person (ref p) :: Count :: (int a, int b) int {...} 
 
 Person::Count::(int a, int b) int [Person p] {...}
@@ -75,12 +84,27 @@ sum :: (int a, b) int, float32 {}
 sum::(int some, int thing,{int do}) int{}
 sum::(int some, int thing) int{}
 
-// Lambdas?
+// C/go version
+func sum(int a, int b) (int) {
+    sum := a + b
+    return sum
+}
+
+func foo() (int a, int b) {
+    return 1, 2
+}
+
+////////////////////////////////////////////////////
+// ANONYMOUS FUNCTIONS
+////////////////////////////////////////////////////
 // () => {}
 // someFunc::(string s, func::(int)){...}
 someFunc("hello", (1){print()})
 someFunc("hello", func::(1){print()})
 someFunc("hello", (1)=>{print()})
+
+//... Lambdas that take a placeholder in arguments, and the real anonymous function
+// .... in a comma-separated list of blocks after the :: (scope) operator
 someFunc("hello", func)::(1){print()}
 someFunc("hello", func, func, func)
     ::(1){
@@ -93,15 +117,7 @@ someFunc("hello", func, func, func)
         print()
     }
 
-// C/go version
-func sum(int a, int b) (int) {
-    sum := a + b
-    return sum
-}
 
-func foo() (int a, int b) {
-    return 1, 2
-}
 
 //  declaring a new scope in the same file.
 //  NOTES: There is an "open" scope at the top (::), we infer
