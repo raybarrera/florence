@@ -97,9 +97,19 @@ func foo() (int a, int b) {
 ////////////////////////////////////////////////////
 // ANONYMOUS FUNCTIONS
 ////////////////////////////////////////////////////
-// () => {}
 // someFunc::(string s, func::(int)){...}
+
+//...Inline versions. One and multiple function inputs.
+
+//(string, (int){}){}
 someFunc("hello", (1){print()})
+
+//(string, (int){}, (int){}, (int){})
+someFunc("hello", 
+    (1){print()},
+    (2){print()},
+    (3){print()})
+
 someFunc("hello", func::(1){print()})
 someFunc("hello", (1)=>{print()})
 
