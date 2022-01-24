@@ -37,7 +37,11 @@ struct Person {
     string  lastName
 }
 
-@struct Person{}
+enum Types {
+    SOME = 0,
+    OTHER,
+    THING,
+}
 
 ////////////////////////////////////////////////////
 // TRAITS

@@ -1,0 +1,15 @@
+::program main
+
+struct Game {
+    int framerate = 60
+}
+
+main :: () {
+    while true {
+        update()
+    }
+}
+
+update :: (float64 dt) {
+        
+}
