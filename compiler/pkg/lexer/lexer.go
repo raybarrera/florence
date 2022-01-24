@@ -1,0 +1,3 @@
+package lexer
+
+// Token implementation
