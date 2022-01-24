@@ -1,15 +1,18 @@
 ::program main
 
-struct Game {
-    int framerate = 60
+imports ::{
+    "florence.org/packages/http"
+}
+
+struct Endpoint {
+    string  resourceName
+    int     port
 }
 
 main :: () {
-    while true {
-        update()
-    }
+    http := http.Serve("/route", routeHandler)
 }
 
-update :: (float64 dt) {
-    
+routeHandler :: (Response resp, Request @req) {
+    resp.Write("<html>")
 }
