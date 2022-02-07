@@ -14,5 +14,5 @@ main :: () {
 }
 
 routeHandler :: (Response resp, Request @req) {
-    resp.Write("<html>")
+    resp.Write("<html></html>")
 }
