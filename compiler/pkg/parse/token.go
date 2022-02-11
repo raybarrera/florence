@@ -1,4 +1,6 @@
-package token
+package parse
+
+import "fmt"
 
 type TokenType string
 
@@ -6,6 +8,10 @@ type Token struct {
 	Type    TokenType
 	Literal string
 	Line    int
+}
+
+func (t Token) Srting() string {
+	return fmt.Sprintf("Type %v, Literal %v, Line %d", t.Type, t.Literal, t.Line)
 }
 
 const (
