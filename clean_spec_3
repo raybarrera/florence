@@ -1,0 +1,20 @@
+::program main
+
+struct game {
+
+}
+
+game :: start :: () {
+	await game.Update()
+}
+
+game :: Update :: () {
+	while true {
+		return 
+	}
+}
+
+main :: () {
+	await game.start()
+}
+
