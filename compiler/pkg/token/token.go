@@ -39,12 +39,13 @@ const (
 	RightBracket = "]"
 
 	//Ketwords
-	True   = "True"
-	False  = "False"
-	If     = "If"
-	Else   = "Else"
-	Return = "Return"
-	Struct = "Struct"
-	Trait  = "Trait"
-	Enum   = "Enum"
+	True    = "True"
+	False   = "False"
+	If      = "If"
+	Else    = "Else"
+	Return  = "Return"
+	Struct  = "Struct"
+	Trait   = "Trait"
+	Enum    = "Enum"
+	Imports = "Imports"
 )

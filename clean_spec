@@ -1,7 +1,8 @@
 ::program main
 
-imports ::{
+imports :: {
     "florence.org/packages/http"
+    "florence.org/packages/log"
 }
 
 struct Endpoint {
@@ -14,5 +15,6 @@ main :: () {
 }
 
 routeHandler :: (Response resp, Request @req) {
+    print("URI is : ${req.Uri}")
     resp.Write("<html>")
 }
