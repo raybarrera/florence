@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"go/token"
 	"strconv"
+	"unicode"
 	"unicode/utf8"
 )
 
@@ -153,7 +154,43 @@ exit:
 var prefix = []byte("line ")
 
 func (s *scanner) updateLineInfo(next, offs int, text []byte) {
-	// TODO
+	// extract comment text
+	if text[1] == '*' {
+		text = text[:len(text)-2]
+	}
+	text = text[7:]
+	offs += 7
+
+	i, n, ok := trailingDigits(text)
+
+	if i == 0 {
+		return
+	}
+
+	if !ok {
+		//error
+		return
+	}
+
+	var line, col int
+	i2, n2, ok2 := trailingDigits(text[:i-1])
+	if ok2 {
+		i, i2 = i2, i
+		line, col = n2, n
+		if col == 0 {
+			// error
+			return
+		}
+		text = text[:i2-1]
+	} else {
+		line = n
+	}
+
+	if line == 0 {
+		// error
+		return
+	}
+	//TODO the files stuff
 }
 
 func trailingDigits(text []byte) (int, int, bool) {
@@ -205,6 +242,26 @@ func (s *scanner) skipWhitespace() {
 	for s.ch == ' ' || s.ch == '\t' || s.ch == '\n' && !s.insertSemi || s.ch == '\r' {
 		s.next()
 	}
+}
+
+func isLetter(ch rune) bool {
+	return 'a' <= lower(ch) && lower(ch) <= 'z' || ch == '_' || ch >= utf8.RuneSelf && unicode.IsLetter(ch)
+}
+
+func isDigit(ch rune) bool {
+	return isDecimal(ch) || ch >= utf8.RuneSelf && unicode.IsDigit(ch)
+}
+
+func lower(ch rune) rune {
+	return ('a' - 'A' | ch)
+}
+
+func isDecimal(ch rune) bool {
+	return '0' <= ch && ch <= '9'
+}
+
+func isHex(ch rune) bool {
+	return '0' <= ch && ch <= '9' || 'a' <= lower(ch) && lower(ch) <= 'f'
 }
 
 func run() {
