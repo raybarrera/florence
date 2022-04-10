@@ -1,14 +1,33 @@
-::program main
+:: program main
 
-struct game {
-
+import {
+	"foo"
 }
 
-game :: start :: () {
+struct game {
+	int fps
+}
+
+// Attaching a method, start::(), to a pointer of type game.
+// the pointer is available in the scope of the function via keyword "it"
+*game :: start :: () {
+	// Read as "the val at (@) 'it' (a pointer of type game)"
+	@it.fps = 60
+
+	//it.fps = 60 // Compile error. A pointer of type game does not have a field named "fps"
+
 	await game.Update()
 }
 
-game :: Update :: () {
+game :: func setFps := fn(int newFps) {
+	// Since we are operating on a value, there is no need for the @ operator
+	it.fps = newFps
+
+	it.start()
+}
+
+// Implicitly implements the foo::doer trait
+game :: Update :: (float64 deltaTime) {
 	while true {
 		return 
 	}
@@ -18,3 +37,8 @@ main :: () {
 	await game.start()
 }
 
+::package foo
+
+trait doer {
+	Update(float64)
+} 
