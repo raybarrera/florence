@@ -16,10 +16,11 @@ struct game {
 
 	//it.fps = 60 // Compile error. A pointer of type game does not have a field named "fps"
 
+	// Kick of a coroutine
 	await game.Update()
 }
 
-game :: func setFps := fn(int newFps) {
+game :: setFps :: (int newFps) {
 	// Since we are operating on a value, there is no need for the @ operator
 	it.fps = newFps
 
