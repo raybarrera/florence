@@ -10,31 +10,41 @@ struct game {
 
 // Attaching a method, start::(), to a pointer of type game.
 // the pointer is available in the scope of the function via keyword "it"
-*game :: start :: () {
+*game :: fn start () {
 	// Read as "the val at (@) 'it' (a pointer of type game)"
 	@it.fps = 60
 
 	//it.fps = 60 // Compile error. A pointer of type game does not have a field named "fps"
-
-	await game.Update()
+	//The ... operator following a function invocation runs it concurrently
+	game.Update()...
 }
 
-game :: func setFps := fn(int newFps) {
+game :: fn setFps (int newFps) {
 	// Since we are operating on a value, there is no need for the @ operator
 	it.fps = newFps
 
+	// call method of type game, declared above as a pointer receiver
 	it.start()
 }
 
 // Implicitly implements the foo::doer trait
-game :: Update :: (float64 deltaTime) {
+game :: fn Update (float64 deltaTime) {
 	while true {
 		return 
 	}
 }
 
-main :: () {
-	await game.start()
+fn main (...string argv) {
+	// Fire off a concurrent invocation of game.Start()
+	game.start()...
+	// _ Discard the returned value.
+	// Not using concurrency causes this line to block until slowOp() returns
+	_ := slowOp()
+}
+
+fn slowOp() int32 {
+	sleep(10)
+	return 0
 }
 
 ::package foo
