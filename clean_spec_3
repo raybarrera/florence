@@ -1,6 +1,7 @@
 :: program main
 
 import {
+	"async"
 	"foo"
 }
 
@@ -35,16 +36,22 @@ game :: fn Update (float64 deltaTime) {
 }
 
 fn main (...string argv) {
+	c := NewChannel<int32>()
 	// Fire off a concurrent invocation of game.Start()
 	game.start()...
-	// _ Discard the returned value.
+	
 	// Not using concurrency causes this line to block until slowOp() returns
-	_ := slowOp()
+	slowOp(c)
+	// The concurrent version below does not block
+	slowOp(c)...
+	i := <- c //i := 5
+
+	//TODO clear up the blocking/nonblocking nature of channels. The above would not work
 }
 
-fn slowOp() int32 {
+fn slowOp(chan<int32> ch) {
 	sleep(10)
-	return 0
+	 5 -> ch
 }
 
 ::package foo
