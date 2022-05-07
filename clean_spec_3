@@ -11,7 +11,9 @@ type rules trait {
 
 // Declaring a struct type
 type game struct {
-	int fps
+	// Declares the `fps` field with an arbitrary tag containing the string "some data"
+	// Reflection can pull the metadata in the tag.
+	int fps	`some data`
 }
 
 // Declaring a type based on game
