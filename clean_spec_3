@@ -5,14 +5,40 @@ import {
 	"foo"
 }
 
-struct game {
+type rules trait {
+	apply()
+}
+
+// Declaring a struct type
+type game struct {
 	int fps
+}
+
+// Declaring a type based on game
+type fpsGame game {}
+
+// Delcaring a type using generics
+type specialGame<rules T> game {
+	// T resolves to rules
+	T gameRules
+}
+
+// call the generic type `gameRules` `apply()` method. 
+// This is possible because the specialGame type generic field is constrainted to the rules trait.
+specialGame :: fn init() {
+	gamerules.apply()
+}
+
+type specialRules struct {}
+
+specialRules :: fn apply(){
+	print("rules applied.")
 }
 
 // Attaching a method, start::(), to a pointer of type game.
 // the pointer is available in the scope of the function via keyword "it"
 *game :: fn start () {
-	// Read as "the val at (@) 'it' (a pointer of type game)"
+	// Read as "the val at (@) 'it' (where 'it' is a pointer of type game)"
 	@it.fps = 60
 
 	//it.fps = 60 // Compile error. A pointer of type game does not have a field named "fps"
@@ -54,8 +80,25 @@ fn slowOp(chan<int32> ch) {
 	 5 -> ch
 }
 
+fn arrayOfNames() {
+	// separate assignment
+	var [string] names
+	names = ["Ray", "Cara"]
+
+	//or initialize and assign
+	lastNames := ["McIlnay", "Barrera"]
+}
+
+fn mapOfPeople() {
+	var [string, string] people
+
+	persons := [string, string]{
+		"some": "one",
+	}
+}
+
 ::package foo
 
-trait doer {
+type doer trait {
 	Update(float64)
 } 
