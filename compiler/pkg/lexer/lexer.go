@@ -45,8 +45,8 @@ func (l *Lexer) next() {
 	}
 }
 
-func (l *Lexer) Scan() Token {
-	return Token{}
+func (l *Lexer) Scan() Tok {
+	return Tok{}
 }
 
 func (l *Lexer) peek() byte {
