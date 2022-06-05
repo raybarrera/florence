@@ -55,3 +55,9 @@ func (l *Lexer) peek() byte {
 	}
 	return 0
 }
+
+func (l *Lexer) skipWhitespace() {
+	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' && !l.insertSemi || l.ch == '\r' {
+		l.next()
+	}
+}
