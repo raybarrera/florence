@@ -1,216 +1,106 @@
-// :: scope operator
-// program is a keyword indicating this is a program, not a pacakge.
-// main is the reserved keyword/name for the main activity in a program
 :: program main
 
-int count = 1
-string name = "abc"
-float32 cents
-
-@function
-main {
-    Person p = {
-        age: 20,
-        name: "blah",
-        lastName: "doo"
-    }
-    something := p.Count(1, 2)
-    other := foo(p)
-    log(sum(1,2))
-    return 0
+import {
+	"async"
+	"foo"
 }
 
-foo :: (Counter c) int {
-    return c.Count(1, 2)
+type rules trait {
+	apply()
 }
 
-////////////////////////////////////////////////////
-// TYPE DECLARATIONS
-////////////////////////////////////////////////////
-
-// ..Do we want classes?
-// ...Do we want pointers?
-// .... Do we want auto-linting like gofmt?
-struct Person {
-    int     age
-    string  name
-    string  lastName
+// Declaring a struct type
+type game struct {
+	// Declares the `fps` field with an arbitrary tag containing the string "some data"
+	// Reflection can pull the metadata in the tag.
+	int fps	`some data`
 }
 
-enum Types {
-    SOME = 0,
-    OTHER,
-    THING,
+// Declaring a type based on game
+type fpsGame game {}
+
+// Delcaring a type using generics
+type specialGame<rules T> game {
+	// T resolves to rules
+	T gameRules
 }
 
-////////////////////////////////////////////////////
-// TRAITS
-////////////////////////////////////////////////////
-
-// Contracts, AKA Interfaces (Should I just call them interfaces?) Or traits
-@trait Counter {
-    Count :: (int, int) int
-    Deduct :: (int) int
+// call the generic type `gameRules` `apply()` method. 
+// This is possible because the specialGame type generic field is constrainted to the rules trait.
+specialGame :: fn init() {
+	gamerules.apply()
 }
 
-interface Counter {...}
+type specialRules struct {}
 
-type Counter interface {...}
-
-trait Counter {...}
-
-@trait Counter{...}
-
-@Counter::Count(int, int) int
-@Counter::Deduct(int) int
-
-
-////////////////////////////////////////////////////\
-// FUNCTIONS
-////////////////////////////////////////////////////
-Person (ref p) :: Count :: (int a, int b) int {...} 
-
-Person::Count::(int a, int b) int [Person p] {...}
-
-Count::(@Person p, int a, int b) int {...}
-
-// Operator-inferred function declaration 
-sum :: (int a, b) returns int {}
-
-// Operator-inferred function without "returns" keyword
-sum :: (int a, b) int {}
-
-sum :: (int a, b) (int, float32) {}
-
-sum :: (int a, b) int, float32 {}
-
-// Named args?
-sum::(int some, int thing,{int do}) int{}
-sum::(int some, int thing) int{}
-
-// C/go version
-func sum(int a, int b) (int) {
-    sum := a + b
-    return sum
+specialRules :: fn apply(){
+	print("rules applied.")
 }
 
-func foo() (int a, int b) {
-    return 1, 2
-}
- 
-////////////////////////////////////////////////////
-// POINTERS, VALUES, ETC.
-////////////////////////////////////////////////////
-// a is an int
-sum::(int a) {
-    a++ //a is a copy of the passed value, original value remains the same
-}
+// Attaching a method, start::(), to a pointer of type game.
+// the pointer is available in the scope of the function via keyword "it"
+*game :: fn start () {
+	// Read as "the val at (@) 'it' (where 'it' is a pointer of type game)"
+	@it.fps = 60
 
-// a is a pointer of type int
-//a = 1
-//... using implicit casting via default operators
-sum::(int@ a) {
-    int b := a // 
-    b++ //original value is incremented by 1
-    a = b // the int at pointer a is now equal to b (2)
+	//it.fps = 60 // Compile error. A pointer of type game does not have a field named "fps"
+	//The ... operator following a function invocation runs it concurrently
+	game.Update()...
 }
 
-some::(string@ a) {
-    string b := a + "world"
-    a = b // OK
+game :: fn setFps (int newFps) {
+	// Since we are operating on a value, there is no need for the @ operator
+	it.fps = newFps
 
+	// call method of type game, declared above as a pointer receiver
+	it.start()
 }
 
-// ... with dereference operator
-some::(string@ a) {
-    &a[0] = "a" // err: "string" is immutable
-    ...
-    string b := &a + " "
-    &a = b // OK, new assignment
+// Implicitly implements the foo::doer trait
+game :: fn Update (float64 deltaTime) {
+	while true {
+		return 
+	}
 }
 
-sum::(int@ a) {
-    &a++
+fn main (...string argv) {
+	c := NewChannel<int32>()
+	// Fire off a concurrent invocation of game.Start()
+	game.start()...
+	
+	// Not using concurrency causes this line to block until slowOp() returns
+	slowOp(c)
+	// The concurrent version below does not block
+	slowOp(c)...
+	i := <- c //i := 5
+
+	//TODO clear up the blocking/nonblocking nature of channels. The above would not work
 }
 
-////////////////////////////////////////////////////
-// ANONYMOUS FUNCTIONS
-////////////////////////////////////////////////////
-...
-// ... Declaring a function that takes an anonymous function as an argument
-someFunc::(int a, func::(int){} f) {
-    f(a)
-}
-someFunc::(int a, func::(int){}foo, func::(int){}bar) {
-    foo(a)
-    bar(a)
-}
-someFunc::(int a, func::(int)int{} foo){
-    someInt := foo(a)
+fn slowOp(chan<int32> ch) {
+	sleep(10)
+	 5 -> ch
 }
 
-// ... Version without the func keyword
-someFunc::(int a, (int){} f) {
-    f(a)
-}
-someFunc::(int a, (int){}foo, (int){}bar) {
-    foo(a)
-    bar(a)
-}
-someFunc::(int a, (int)int{} foo){
-    i := foo(a)
+fn arrayOfNames() {
+	// separate assignment
+	var [string] names
+	names = ["Ray", "Cara"]
+
+	//or initialize and assign
+	lastNames := ["McIlnay", "Barrera"]
 }
 
-// ... Placeholder version
-someFunc::(int a, func f) :: 
-(int){} {
-    f(a)
+fn mapOfPeople() {
+	var [string, string] people
+
+	persons := [string, string]{
+		"some": "one",
+	}
 }
-someFunc::(int a, func foo, func bar)::
-    (int){},
-    (int){}{
-        foo(a)
-        bar(a)
-    }
-someFunc::(int a, func foo)::
-    (int)int{}{
-        i := foo(a)
-    }
 
+::package foo
 
-//...Inline versions. One and multiple function inputs.
-
-//(string, (int){}){}
-someFunc("hello", (1){print()})
-
-//(string, (int){}, (int){}, (int){})
-someFunc("hello", 
-    (1){print()},
-    (2){print()},
-    (3){print()})
-
-
-//... Lambdas that take a placeholder in arguments, and the real anonymous function
-// .... in a comma-separated list of blocks after the :: (scope) operator
-someFunc("hello", func)::(1){print()}
-someFunc("hello", func, func, func)
-    ::(1){
-        print()
-    },
-    (1){
-        print()
-    },
-    (1){
-        print()
-    }
-
-
-////////////////////////////////////////////////////
-// PACKAGE/SCOPE DECLARATION
-////////////////////////////////////////////////////
-//  declaring a new scope in the same file.
-//  NOTES: There is an "open" scope at the top (::), we infer
-//  a "closing" scope at end of file, or in this case, a new scope declaration.
-//  In theory, this allows a "flat" structure avoiding the unnecessary indentation in languages like C# (prior to v10)
-// This is a scope for package named main_tests
-:: package main_tests
+type doer trait {
+	Update(float64)
+} 
