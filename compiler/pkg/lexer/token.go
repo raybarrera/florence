@@ -94,6 +94,7 @@ const (
 	FN
 	PACKAGE
 	PROGRAM
+	IT
 	keywordEnd
 )
 

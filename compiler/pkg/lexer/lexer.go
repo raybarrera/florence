@@ -5,6 +5,11 @@ import (
 	"io"
 )
 
+const (
+	bom = 0xFEFF // byte order mark
+	eof = -1     // end of file
+)
+
 type Lexer struct {
 	Start   int
 	Current int
@@ -26,6 +31,17 @@ func NewLexer(reader io.Reader) *Lexer {
 		Line:   1,
 		Column: 0,
 		reader: bufio.NewReader(reader),
+	}
+}
+
+func (l *Lexer) next() {
+	if l.Current < len(l.src) {
+		l.Current++
+	} else {
+		if l.ch == '\n' {
+			//...
+		}
+		l.ch = eof
 	}
 }
 
