@@ -2,6 +2,7 @@ package parse
 
 import (
 	"bytes"
+	"compiler/pkg/lexer"
 	"fmt"
 	"go/token"
 	"strconv"
@@ -13,9 +14,10 @@ type scanner struct {
 	Start                 int
 	Current               int
 	Line                  int
+	Column                int
 	EncounteredParseError bool
 	Source                string
-	Tokens                []Token
+	Tokens                []lexer.Token
 
 	err        ErrorHandler // error reporting; or nil
 	src        []byte
