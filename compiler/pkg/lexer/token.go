@@ -1,5 +1,7 @@
 package lexer
 
+/*
+
 import (
 	"fmt"
 	"strconv"
@@ -125,4 +127,4 @@ func (tok Token) String() string {
 		s = "token(" + strconv.Itoa(int(tok)) + ")"
 	}
 	return s
-}
+}*/
